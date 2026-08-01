@@ -834,6 +834,7 @@
     markInteracted();
     book.classList.add('opened');
     updateReturnHotspot();
+    startMusic();
   });
   leafFront.addEventListener('click', function(){
     if(dragMoved || !isCoverOpen) return;
