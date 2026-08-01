@@ -419,17 +419,17 @@
 
   .cover-front{
     background:
-      radial-gradient(55% 40% at 88% 94%, rgba(0,0,0,.28), transparent 72%),
-      radial-gradient(45% 35% at 6% 96%, rgba(0,0,0,.2), transparent 72%),
+      radial-gradient(55% 40% at 88% 94%, rgba(255,255,255,.22), transparent 72%),
+      radial-gradient(45% 35% at 6% 96%, rgba(255,255,255,.12), transparent 72%),
       radial-gradient(130% 90% at 18% 12%, rgba(var(--leather-hi), .22), transparent 55%),
-      repeating-linear-gradient(128deg, rgba(0,0,0,.06) 0 2px, transparent 2px 7px),
-      linear-gradient(155deg, var(--leather-1) 0%, var(--leather-2) 48%, var(--leather-3) 100%);
+      repeating-linear-gradient(128deg, rgba(0,0,0,.03) 0 2px, transparent 2px 7px),
+      linear-gradient(155deg, #c58c52 0%, #f1cf84 48%, #ab7a3b 100%);
     box-shadow:
-      inset 0 0 0 2px rgba(var(--leather-hi), .16),
-      inset 0 0 55px rgba(0,0,0,.6),
-      0 30px 55px rgba(0,0,0,.55),
-      0 3px 0 rgba(0,0,0,.4);
-    border:1px solid rgba(0,0,0,.5);
+      inset 0 0 0 2px rgba(var(--leather-hi), .12),
+      inset 0 0 55px rgba(0,0,0,.35),
+      0 24px 38px rgba(0,0,0,.28),
+      0 2px 0 rgba(0,0,0,.28);
+    border:1px solid rgba(0,0,0,.26);
     display:flex; align-items:center; justify-content:center;
   }
   .cover-front{ display:flex; flex-direction:column; height:100%; box-sizing:border-box; }
@@ -489,9 +489,9 @@
     font-size: clamp(1.55rem, 7.2vw, 2.35rem);
     letter-spacing:.015em;
     line-height:1.15;
-    background: linear-gradient(180deg, #fff6dd 0%, #ecc96a 32%, #b0812c 62%, #7c5a1d 100%);
+    background: linear-gradient(180deg, #fff9d7 0%, #ffe082 32%, #ebbb5f 62%, #9c6d35 100%);
     -webkit-background-clip:text; background-clip:text; color:transparent;
-    filter: drop-shadow(0 2px 2px rgba(0,0,0,.55)) drop-shadow(0 0 1px rgba(255,240,200,.35));
+    filter: drop-shadow(0 2px 2px rgba(0,0,0,.42)) drop-shadow(0 0 1px rgba(255,245,210,.4));
     margin:0;
   }
   .divider{ display:flex; align-items:center; gap:10px; width:74%; margin:14px auto; }
@@ -825,17 +825,23 @@
     isAnimating = true;
     isFlipped = next;
     markInteracted();
-    // temporarily disable book transition so removing tilt doesn't animate and stretch
+    // temporarily disable book and cover transitions so removing tilt doesn't animate and stretch
     const prevTransition = book.style.transition;
+    const prevCoverTransition = cover.style.transition;
     const bookFloatEl = document.getElementById('bookFloat');
     book.style.transition = 'none';
+    if (isCoverOpen) cover.style.transition = 'none';
     book.style.transform = '';
     if(bookFloatEl) bookFloatEl.style.transform = '';
     // force reflow
     void book.offsetWidth;
     book.classList.toggle('flipped', isFlipped);
     // restore transition after flip completes
-    setTimeout(function(){ book.style.transition = prevTransition || ''; isAnimating = false; updateReturnHotspot(); }, 1000);
+    setTimeout(function(){
+      book.style.transition = prevTransition || '';
+      if (isCoverOpen) cover.style.transition = prevCoverTransition || '';
+      isAnimating = false; updateReturnHotspot();
+    }, 1000);
   }
 
   const coverFront = cover.querySelector('.cover-front');
