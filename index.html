@@ -38,14 +38,14 @@
     --bg-1:#1d130b;
     --glow: 255,176,102;
 
-    --leather-1:#5a3620;
-    --leather-2:#3c2313;
-    --leather-3:#26150c;
-    --leather-hi: 255,214,150;
+    --leather-1:#7a4a27;
+    --leather-2:#9d6a3c;
+    --leather-3:#5d391f;
+    --leather-hi: 255,230,160;
 
-    --gold-1:#f6e3ac;
-    --gold-2:#d1a53e;
-    --gold-3:#8a641f;
+    --gold-1:#fff1b8;
+    --gold-2:#f2c661;
+    --gold-3:#b88c3c;
 
     --lining-1:#3a1420;
     --lining-2:#22090f;
@@ -399,6 +399,13 @@
   .book.opened .cover{ 
     transform: rotateY(-100deg);
     pointer-events: none;
+  }
+  .book.opened.flipped .cover{
+    transform: rotateY(-100deg);
+    opacity: 1;
+    pointer-events: none;
+    transition: none;
+    visibility: hidden;
   }
   
   .book.flipped:not(.opened) .cover{ opacity: 0; pointer-events: none; }
